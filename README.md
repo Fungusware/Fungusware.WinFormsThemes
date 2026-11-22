@@ -127,7 +127,7 @@ better against `surface`, and `onAccent` readable against `accent`.
 ## Run the demo
 
 ```
-git clone https://github.com/<you>/KryptonModern
+git clone https://github.com/Fungusware/KryptonModern
 cd KryptonModern
 dotnet run
 ```
