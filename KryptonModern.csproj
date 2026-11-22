@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <Authors>Fungusware</Authors>
+    <Company>Fungusware</Company>
+    <Copyright>Copyright (c) 2026 Fungusware</Copyright>
+    <Product>KryptonModern</Product>
+    <Description>Modern flat themes for Krypton Toolkit (WinForms).</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Krypton.Toolkit" Version="105.26.7.201" />
+    <PackageReference Include="Krypton.Navigator" Version="105.26.7.201" />
+    <PackageReference Include="Krypton.Ribbon" Version="105.26.7.201" />
+    <PackageReference Include="Krypton.Docking" Version="105.26.7.201" />
+    <PackageReference Include="Krypton.Workspace" Version="105.26.7.201" />
+  </ItemGroup>
+</Project>
