@@ -53,7 +53,7 @@ public static class ThemeApplier
                 var edge = b.ButtonStyle == ButtonStyle.Custom1 ? t.Accent : t.BorderStrong;
                 foreach (var o in new[] { b.OverrideFocus, b.OverrideDefault })
                 {
-                    o.Back.Color1 = back; o.Back.Color2 = back; o.Back.ColorStyle = PaletteColorStyle.Solid;
+                    o.Back.Draw = InheritBool.True; o.Back.Color1 = back; o.Back.Color2 = back; o.Back.ColorStyle = PaletteColorStyle.Solid;
                     o.Content.ShortText.Color1 = text;
                     o.Border.Color1 = edge; o.Border.Color2 = edge;
                 }

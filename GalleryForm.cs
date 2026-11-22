@@ -29,6 +29,7 @@ public class GalleryForm : KryptonForm
         var start = int.TryParse(Environment.GetEnvironmentVariable("KM_THEME"), out var t0) ? t0 : 0;
         _picker.SelectedIndex = start;
         ApplyTheme(ModernTheme.All[start]);
+        Shown += (_, _) => ApplyTheme(ModernTheme.All[_picker.SelectedIndex]); // ThemeApplier needs the form shown
     }
 
     void BuildUi()

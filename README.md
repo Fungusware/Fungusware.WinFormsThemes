@@ -53,7 +53,8 @@ twelve colours, so adding your own takes a minute.
        public MainForm()
        {
            InitializeComponent();
-           ApplyTheme(ModernTheme.NeonSynthwave);
+           // ThemeApplier walks the form's controls, which only exist once it is shown
+           Shown += (_, _) => ApplyTheme(ModernTheme.NeonSynthwave);
        }
 
        void ApplyTheme(Tokens t)
@@ -118,6 +119,7 @@ better against `surface`, and `onAccent` readable against `accent`.
   `SelectedIndexChanged` handler while a Krypton combo box is still open can crash the app with an
   `AccessViolationException`. If you change theme from a combo box, apply it after
   `DropDownClosed` / via `BeginInvoke`, as `DemoForm.cs` does.
+- **Call `ThemeApplier.Apply` after the form is shown** (the `Shown` event), not in the constructor: in a `KryptonForm` the child controls are not reachable yet, so nothing gets themed and focused primary buttons look disabled.
 - **Use `KryptonForm`** for the window, otherwise you keep the standard Windows title bar.
 - **Drop-down list colours** are set per combo box. `ThemeApplier.Apply` does this for every
   `KryptonComboBox` it finds; call it again after you add controls at runtime.
@@ -132,11 +134,11 @@ cd KryptonModern
 dotnet run
 ```
 
-The demo has three windows, chosen with the `KM_FORM` environment variable:
+`dotnet run` opens a launcher where you pick one of three test windows (closing a window returns to the launcher). To skip the launcher, set the `KM_FORM` environment variable:
 
 | `KM_FORM` | Window | Shows |
 |---|---|---|
-| (unset) | Settings demo | A realistic settings page with a theme picker |
+| `1` | Settings demo | A realistic settings page with a theme picker |
 | `2` | Control check | Every Krypton Toolkit control and the plain WinForms controls side by side |
 | `3` | Suite gallery | Ribbon, Navigator (tab / ribbon / check-button / header modes and Outlook stack), Workspace, Docking (dock, auto-hide, float) |
 
@@ -163,7 +165,7 @@ Each window has a theme picker; the gallery's four tabs cover the whole suite.
 - `ModernTheme.Suite.cs` – Navigator / Workspace / Docking / Ribbon / tool strip palette entries
 - `ThemeApplier.cs` – theming for controls outside the palette
 - `ModernControls.cs` – `CardPanel`, `PillProgress`
-- `DemoForm.cs`, `ControlsForm.cs`, `GalleryForm.cs`, `Program.cs` – demo only, not needed in your project
+- `LauncherForm.cs`, `DemoForm.cs`, `ControlsForm.cs`, `GalleryForm.cs`, `Program.cs` – demo only, not needed in your project
 
 ## License
 

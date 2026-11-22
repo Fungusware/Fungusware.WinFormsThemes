@@ -7,7 +7,8 @@ static class Program
     static void Main()
     {
         ApplicationConfiguration.Initialize();
-        Form f = Environment.GetEnvironmentVariable("KM_FORM") switch { "2" => new ControlsForm(), "3" => new GalleryForm(), _ => new DemoForm() };
+        // KM_FORM=1|2|3 opens a window directly (handy for scripted runs); otherwise show the launcher.
+        Form f = Environment.GetEnvironmentVariable("KM_FORM") switch { "1" => new DemoForm(), "2" => new ControlsForm(), "3" => new GalleryForm(), _ => new LauncherForm() };
         Application.Run(f);
     }
 }

@@ -26,6 +26,7 @@ public class DemoForm : KryptonForm
 
         BuildUi();
         ApplyTheme(ModernTheme.All[int.TryParse(Environment.GetEnvironmentVariable("KM_THEME"), out var t0) ? t0 : 0]);
+        Shown += (_, _) => ApplyTheme(_t); // ThemeApplier needs the form shown to reach its child controls
 
         _timer.Tick += (_, _) => { foreach (var b in _bars) b.Value = (b.Value + 1) % 101; };
         _timer.Start();
