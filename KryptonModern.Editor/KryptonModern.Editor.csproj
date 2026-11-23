@@ -11,7 +11,7 @@
     <Description>A fast, themeable WinForms code editor control with syntax highlighting, minimap and completion. No third-party dependencies.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageId>KryptonModern.Editor</PackageId>
-    <Version>2026.11.23.1843</Version>
+    <Version>2026.11.24.0644</Version>
     <PackageTags>winforms;code-editor;syntax-highlighting;minimap;editor</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Fungusware/KryptonModern</RepositoryUrl>
