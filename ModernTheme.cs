@@ -92,7 +92,12 @@ public static partial class ModernTheme
         0x0B0618, 0x150C2E, 0x20143F, 0x35235F, 0x7A5FBF, 0xF4ECFF, 0xB5A3DD,
         0xFF3CAC, 0xFF6AC1, 0xE0208F, 0x1A0524, 0x6A5A8E);
 
-    public static readonly Tokens[] All = { Light, Dark, MaterialLight, MaterialDark, SolarizedLight, SolarizedDark, Nord, Dracula, NeonSynthwave };
+        // Approximation of DevExpress "Bezier": cool grey canvas, white surfaces, tight corners, steel-blue accent.
+    public static readonly Tokens Bezier = T("Bezier", 2, 3,
+        0xEDEFF2, 0xFFFFFF, 0xE1E5EA, 0xCDD3DA, 0x8A94A0, 0x2B3036, 0x5A636D,
+        0x3872B8, 0x2F63A3, 0x265389, 0xFFFFFF, 0xAAB1B9);
+
+    public static readonly Tokens[] All = { Light, Dark, MaterialLight, MaterialDark, SolarizedLight, SolarizedDark, Nord, Dracula, NeonSynthwave, Bezier };
     public static KryptonCustomPaletteBase Build(Tokens t)
     {
         var p = new KryptonCustomPaletteBase();

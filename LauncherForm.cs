@@ -32,6 +32,7 @@ public class LauncherForm : KryptonForm
         Add(stack, "Settings demo", "A realistic settings page: forms, table, progress.", () => new DemoForm());
         Add(stack, "Control check", "Every Krypton Toolkit control and plain WinForms controls.", () => new ControlsForm());
         Add(stack, "Suite gallery", "Ribbon, Navigator, Workspace and Docking.", () => new GalleryForm());
+        Add(stack, "Krypton Studio", "A full Visual Studio-style IDE built with Krypton.", () => new KryptonModern.VsClone.VsCloneForm());
         Shown += (_, _) => ThemeApplier.Apply(this, ModernTheme.Light); // controls exist only once the form is shown
     }
 

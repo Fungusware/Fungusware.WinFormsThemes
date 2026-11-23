@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>KryptonModern.Editor</RootNamespace>
+    <Authors>Fungusware</Authors>
+    <Company>Fungusware</Company>
+    <Copyright>Copyright (c) 2026 Fungusware</Copyright>
+    <Description>A fast, themeable WinForms code editor control with syntax highlighting, minimap and completion. No third-party dependencies.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+</Project>

@@ -2,7 +2,7 @@
 
 By **Fungusware**. Modern, flat themes for [Krypton Toolkit](https://github.com/Krypton-Suite/Standard-Toolkit) (WinForms).
 Windows 11 / modern-web look: flat fills, hairline borders, rounded corners, one accent colour,
-drawn check and radio glyphs, matching dark title bar. Nine themes included, and a theme is just
+drawn check and radio glyphs, matching dark title bar. Ten themes included, and a theme is just
 twelve colours, so adding your own takes a minute.
 
 | Fluent Light | Fluent Dark | Neon Synthwave |
@@ -16,6 +16,18 @@ twelve colours, so adding your own takes a minute.
 | Solarized Light | Solarized Dark | Dracula |
 |---|---|---|
 | ![Solarized Light](docs/screenshots/solarized-light.png) | ![Solarized Dark](docs/screenshots/solarized-dark.png) | ![Dracula](docs/screenshots/dracula.png) |
+
+The tenth theme, **Bezier**, imitates the DevExpress skin of the same name (cool grey canvas, white surfaces, tight corners, steel-blue accent). It is an approximation, tuned by eye.
+
+## Krypton Studio: a Visual Studio clone
+
+A full IDE built from Krypton controls and these themes, to show what the library can do: docking (Solution Explorer, Properties, Error List, Output, Find Results, Git Changes, auto-hide Toolbox, PowerShell), workspace tabs, a project tree that reads .sln / .slnx / .csproj, real `dotnet build` and run with errors shown as squiggles, live git status, Ctrl+Q command search, and a theme switch in View > Theme.
+
+| Bezier | Dracula |
+|---|---|
+| ![Studio, Bezier](docs/screenshots/studio-bezier.png) | ![Studio, Dracula](docs/screenshots/studio-dracula.png) |
+
+Open it from the launcher, or set `KM_FORM=4`. It opens this repository's own solution, and builds go to a temp folder so it can rebuild itself while running. The window is in `VsClone/`. The code editor is its own project, [`KryptonModern.Editor`](KryptonModern.Editor/README.md), with no Krypton dependency.
 
 ## Requirements
 
@@ -140,7 +152,8 @@ dotnet run
 |---|---|---|
 | `1` | Settings demo | A realistic settings page with a theme picker |
 | `2` | Control check | Every Krypton Toolkit control and the plain WinForms controls side by side |
-| `3` | Suite gallery | Ribbon, Navigator (tab / ribbon / check-button / header modes and Outlook stack), Workspace, Docking (dock, auto-hide, float) |
+| `3` | Suite gallery | Ribbon, Navigator (tab / ribbon / check-button / header modes and Outlook stack), Workspace, Docking (dock, auto-hide, float) |`n| `4` | Krypton Studio | The Visual Studio clone described above |
+| `4` | Krypton Studio | The Visual Studio clone described above |
 
 ```
 set KM_FORM=3 && dotnet run         (cmd)

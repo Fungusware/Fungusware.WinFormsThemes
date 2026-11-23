@@ -13,6 +13,14 @@
     <Description>Modern flat themes for Krypton Toolkit (WinForms).</Description>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="KryptonModern.Editor\**" />
+    <EmbeddedResource Remove="KryptonModern.Editor\**" />
+    <None Remove="KryptonModern.Editor\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="KryptonModern.Editor\KryptonModern.Editor.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Krypton.Toolkit" Version="105.26.7.201" />
     <PackageReference Include="Krypton.Navigator" Version="105.26.7.201" />
     <PackageReference Include="Krypton.Ribbon" Version="105.26.7.201" />
