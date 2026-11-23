@@ -174,7 +174,7 @@ public partial class VsCloneForm : KryptonForm
         {
             if (d.View.Editor.Modified)
             {
-                var r = KryptonMessageBox.Show(this, $"Save changes to {Path.GetFileName(d.Path)}?", "Krypton Studio", KryptonMessageBoxButtons.YesNoCancel, KryptonMessageBoxIcon.Question);
+                var r = KMessage.Show(this, $"Save changes to {Path.GetFileName(d.Path)}?", "Krypton Studio", KryptonMessageBoxButtons.YesNoCancel, KryptonMessageBoxIcon.Question);
                 if (r == DialogResult.Cancel) { e.CloseRequest = DockingCloseRequest.None; return; }
                 if (r == DialogResult.Yes && !SaveDoc(d)) { e.CloseRequest = DockingCloseRequest.None; return; }
             }
@@ -212,12 +212,12 @@ public partial class VsCloneForm : KryptonForm
                 if (line > 0) { existing.View.Editor.GoTo(line - 1); SelectInLine(existing.View.Editor, line - 1, select); }
                 return existing;
             }
-            if (!File.Exists(path)) { KryptonMessageBox.Show(this, "File not found:\n" + path, "Krypton Studio", KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Warning); return null; }
+            if (!File.Exists(path)) { KMessage.Show(this, "File not found:\n" + path, "Krypton Studio", KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Warning); return null; }
             var info = new FileInfo(path);
-            if (info.Length > 40_000_000) { KryptonMessageBox.Show(this, "That file is too large for the editor.", "Krypton Studio", KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Warning); return null; }
+            if (info.Length > 40_000_000) { KMessage.Show(this, "That file is too large for the editor.", "Krypton Studio", KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Warning); return null; }
             var bytes = File.ReadAllBytes(path);
             if (Array.IndexOf(bytes, (byte)0, 0, Math.Min(bytes.Length, 4096)) >= 0)
-            { KryptonMessageBox.Show(this, "Binary files cannot be edited here.", "Krypton Studio", KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Information); return null; }
+            { KMessage.Show(this, "Binary files cannot be edited here.", "Krypton Studio", KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Information); return null; }
             bool bom = bytes.Length >= 3 && bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF;
             string text = new UTF8Encoding(false).GetString(bytes, bom ? 3 : 0, bytes.Length - (bom ? 3 : 0));
 
@@ -246,7 +246,7 @@ public partial class VsCloneForm : KryptonForm
         }
         catch (Exception ex)
         {
-            KryptonMessageBox.Show(this, ex.Message, "Krypton Studio", KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Error);
+            KMessage.Show(this, ex.Message, "Krypton Studio", KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Error);
             return null;
         }
     }
@@ -292,7 +292,7 @@ public partial class VsCloneForm : KryptonForm
         }
         catch (Exception ex)
         {
-            KryptonMessageBox.Show(this, ex.Message, "Save failed", KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Error);
+            KMessage.Show(this, ex.Message, "Save failed", KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Error);
             return false;
         }
     }
@@ -396,7 +396,7 @@ public partial class VsCloneForm : KryptonForm
             RefreshGit();
             Say("Opened " + Path.GetFileName(path));
         }
-        catch (Exception ex) { KryptonMessageBox.Show(this, ex.Message, "Open failed", KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Error); }
+        catch (Exception ex) { KMessage.Show(this, ex.Message, "Open failed", KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Error); }
     }
 
     static IEnumerable<string> SafeEnumerate(string dir, string pattern, int depth)
@@ -495,7 +495,7 @@ public partial class VsCloneForm : KryptonForm
         var dirty = _docs.Values.Where(d => d.View.Editor.Modified).ToList();
         if (dirty.Count > 0)
         {
-            var r = KryptonMessageBox.Show(this, $"Save changes to {dirty.Count} modified file{(dirty.Count == 1 ? "" : "s")}?", "Krypton Studio", KryptonMessageBoxButtons.YesNoCancel, KryptonMessageBoxIcon.Question);
+            var r = KMessage.Show(this, $"Save changes to {dirty.Count} modified file{(dirty.Count == 1 ? "" : "s")}?", "Krypton Studio", KryptonMessageBoxButtons.YesNoCancel, KryptonMessageBoxIcon.Question);
             if (r == DialogResult.Cancel) { e.Cancel = true; return; }
             if (r == DialogResult.Yes) SaveAll();
         }

@@ -161,7 +161,7 @@ public partial class VsCloneForm
     }
 
     static void OpenUrl(string u) { try { Process.Start(new ProcessStartInfo(u) { UseShellExecute = true }); } catch { } }
-    void Info(string m) => KryptonMessageBox.Show(this, m, "Krypton Studio", KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Information);
+    void Info(string m) => KMessage.Show(this, m, "Krypton Studio", KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Information);
 
     void UpdateThemeChecks() { foreach (var (mi, th) in _themeItems) mi.Checked = th == _t || th.Name == _t.Name; }
 

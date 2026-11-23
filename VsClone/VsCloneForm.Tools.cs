@@ -259,7 +259,7 @@ public partial class VsCloneForm
             ("KryptonDockingManager", "new KryptonDockingManager()"),
             ("KryptonRibbon", "new KryptonRibbon { Dock = DockStyle.Top }"));
         Cat("Krypton Dialogs",
-            ("KryptonMessageBox", "KryptonMessageBox.Show(this, \"Hello\", \"Title\")"),
+            ("KryptonMessageBox", "KMessage.Show(this, \"Hello\", \"Title\")"),
             ("KryptonForm", "public class MainForm : KryptonForm { }"),
             ("KryptonManager", "var manager = new KryptonManager();"));
         _toolboxTree.NodeMouseDoubleClick += (_, e) => { if (e.Node.Tag is string code && Ed != null) { Ed.InsertText(code); Ed.Focus(); } };

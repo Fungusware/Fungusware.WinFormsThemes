@@ -51,7 +51,7 @@ public sealed partial class CodeEditor : Control
     public string GetLine(int index) => _lines[index];
     public int Version => _version;
     public Pos Caret => _caret;
-    public Pos Anchor => _anchor;
+    public Pos SelectionAnchor => _anchor;
     public bool HasSelection => _caret != _anchor;
     public string EolName => _eol == "\r\n" ? "CRLF" : "LF";
     public bool CanUndo => _undo.Count > 0;

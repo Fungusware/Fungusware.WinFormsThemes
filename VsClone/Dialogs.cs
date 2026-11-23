@@ -100,3 +100,55 @@ public sealed class AboutDialog : KryptonForm
         Shown += (_, _) => ThemeApplier.Apply(this, ThemeApplier.Current);
     }
 }
+
+/// <summary>
+/// Themed replacement for KryptonMessageBox. The stock one is built outside ThemeApplier's reach, so under a custom palette its default
+/// button keeps the base palette's light fill and its text comes out washed out. This one is an ordinary KryptonForm that ThemeApplier walks.
+/// </summary>
+public static class KMessage
+{
+    public static DialogResult Show(IWin32Window owner, string text, string caption, KryptonMessageBoxButtons buttons = KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon icon = KryptonMessageBoxIcon.None)
+    {
+        var t = ThemeApplier.Current;
+        using var f = new KryptonForm { Text = caption, StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog, MaximizeBox = false, MinimizeBox = false, ShowInTaskbar = false, AutoScaleMode = AutoScaleMode.Dpi };
+        var root = new KryptonPanel { Dock = DockStyle.Fill };
+        f.Controls.Add(root);
+        var (glyph, color) = icon switch
+        {
+            KryptonMessageBoxIcon.Error or KryptonMessageBoxIcon.Stop => (Ico.Error, Color.FromArgb(0xE5, 0x4B, 0x4B)),
+            KryptonMessageBoxIcon.Warning => (Ico.Warning, Color.FromArgb(0xE0, 0xA8, 0x1E)),
+            KryptonMessageBoxIcon.Question => (Ico.Help, t.Accent),
+            KryptonMessageBoxIcon.Information => (Ico.Info, t.Accent),
+            _ => ('\0', t.Accent)
+        };
+        int x = 24;
+        if (glyph != '\0') { root.Controls.Add(new PictureBox { Image = Ico.Glyph(glyph, color, 36), SizeMode = PictureBoxSizeMode.CenterImage, Location = new Point(22, 24), Size = new Size(40, 40), BackColor = Color.Transparent }); x = 74; }
+        var label = new KryptonWrapLabel { Text = text, Location = new Point(x, 26), MaximumSize = new Size(420, 0), AutoSize = true };
+        root.Controls.Add(label);
+
+        (string text, DialogResult r)[] defs = buttons switch
+        {
+            KryptonMessageBoxButtons.YesNoCancel => new[] { ("Yes", DialogResult.Yes), ("No", DialogResult.No), ("Cancel", DialogResult.Cancel) },
+            KryptonMessageBoxButtons.YesNo => new[] { ("Yes", DialogResult.Yes), ("No", DialogResult.No) },
+            KryptonMessageBoxButtons.OKCancel => new[] { ("OK", DialogResult.OK), ("Cancel", DialogResult.Cancel) },
+            _ => new[] { ("OK", DialogResult.OK) }
+        };
+        int bw = 92, gap = 8, bh = 30;
+        int width = Math.Max(x + 440, 40 + defs.Length * (bw + gap));
+        f.ClientSize = new Size(width, 0);
+        int textBottom = Math.Max(label.Bottom, 64) + 28;
+        f.ClientSize = new Size(width, textBottom + bh + 22);
+        int bx = width - 22 - defs.Length * (bw + gap) + gap;
+        KryptonButton first = null;
+        foreach (var (txt, r) in defs)
+        {
+            var b = new KryptonButton { Text = txt, DialogResult = r, Location = new Point(bx, textBottom), Size = new Size(bw, bh), ButtonStyle = first == null ? ButtonStyle.Custom1 : ButtonStyle.Standalone };
+            first ??= b; root.Controls.Add(b); bx += bw + gap;
+        }
+        f.AcceptButton = first;
+        f.CancelButton = defs.Any(d => d.r == DialogResult.Cancel) ? root.Controls.OfType<KryptonButton>().First(b => b.DialogResult == DialogResult.Cancel)
+                       : defs.Any(d => d.r == DialogResult.No) ? root.Controls.OfType<KryptonButton>().First(b => b.DialogResult == DialogResult.No) : first;
+        f.Shown += (_, _) => ThemeApplier.Apply(f, t);
+        return f.ShowDialog(owner);
+    }
+}

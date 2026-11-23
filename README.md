@@ -19,6 +19,8 @@ twelve colours, so adding your own takes a minute.
 
 The tenth theme, **Bezier**, imitates the DevExpress skin of the same name (cool grey canvas, white surfaces, tight corners, steel-blue accent). It is an approximation, tuned by eye.
 
+![Bezier](docs/screenshots/bezier.png)
+
 ## Krypton Studio: a Visual Studio clone
 
 A full IDE built from Krypton controls and these themes, to show what the library can do: docking (Solution Explorer, Properties, Error List, Output, Find Results, Git Changes, auto-hide Toolbox, PowerShell), workspace tabs, a project tree that reads .sln / .slnx / .csproj, real `dotnet build` and run with errors shown as squiggles, live git status, Ctrl+Q command search, and a theme switch in View > Theme.
@@ -126,6 +128,8 @@ Add it to the `All` array if you want it in the demo's theme picker. Keep text c
 better against `surface`, and `onAccent` readable against `accent`.
 
 ## Gotchas
+
+- **`KryptonMessageBox` under a custom palette.** It is built outside `ThemeApplier`'s reach, so its default button keeps the base palette's light fill and its text can look washed out in dark themes. The demo uses its own `KMessage` (in `VsClone/Dialogs.cs`), an ordinary `KryptonForm` that `ThemeApplier` walks, with the same `Show` signature.
 
 - **Switch themes after a drop-down has closed.** Changing the palette (and its fonts) from inside a
   `SelectedIndexChanged` handler while a Krypton combo box is still open can crash the app with an

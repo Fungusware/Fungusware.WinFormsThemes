@@ -38,7 +38,7 @@ public partial class VsCloneForm
     async Task<bool> BuildAsync(bool rebuild, bool clean)
     {
         if (_building) return false;
-        if (_startup == null) { KryptonMessageBox.Show(this, "Open a project or solution first.", "Krypton Studio", KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Information); return false; }
+        if (_startup == null) { KMessage.Show(this, "Open a project or solution first.", "Krypton Studio", KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Information); return false; }
         SaveAll();
         _building = true; RecolorStatus(); UpdateToolbarState();
         ShowTool(_pgOutput);
