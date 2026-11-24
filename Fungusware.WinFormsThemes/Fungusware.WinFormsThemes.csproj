@@ -11,7 +11,7 @@
     <Description>Themes for WinForms apps: colour tokens, ready-made light and dark themes, in-place styling of plain WinForms controls, a flat menu and toolbar renderer, status colours, and adapters that carry the theme to Krypton, ObjectListView and other control suites. No third-party dependencies.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageId>Fungusware.WinFormsThemes</PackageId>
-    <Version>2026.11.24.2239</Version>
+    <Version>2026.11.24.2317</Version>
     <PackageTags>winforms;theme;dark-mode;flat;fluent</PackageTags>
     <RepositoryUrl>https://github.com/Fungusware/Fungusware.WinFormsThemes</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Fungusware/Fungusware.WinFormsThemes</PackageProjectUrl>

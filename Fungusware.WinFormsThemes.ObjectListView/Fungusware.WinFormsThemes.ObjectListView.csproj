@@ -11,7 +11,7 @@
     <Description>Fungusware.WinFormsThemes for ObjectListView: themed headers, selection colours, empty-list message and column sizing that follow the active theme.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageId>Fungusware.WinFormsThemes.ObjectListView</PackageId>
-    <Version>2026.11.24.2239</Version>
+    <Version>2026.11.24.2317</Version>
     <PackageTags>winforms;theme;objectlistview;dark-mode</PackageTags>
     <RepositoryUrl>https://github.com/Fungusware/Fungusware.WinFormsThemes</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Fungusware/Fungusware.WinFormsThemes</PackageProjectUrl>
