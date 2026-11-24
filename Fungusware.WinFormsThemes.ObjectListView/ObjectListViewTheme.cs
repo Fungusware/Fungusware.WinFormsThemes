@@ -50,7 +50,7 @@ namespace Fungusware.WinFormsThemes
             h.Hot.BackColor = ModernTheme.Blend(t.Accent, t.SurfaceAlt, 0.10f);
             h.Pressed.BackColor = ModernTheme.Blend(t.Accent, t.SurfaceAlt, 0.20f);
             olv.HeaderFormatStyle = h;
-            olv.HeaderMinimumHeight = Math.Max(olv.HeaderMinimumHeight, (int)Math.Round(olv.Font.GetHeight() * 1.0f) + 18); // comfortable padding above and below the header text
+            olv.HeaderMinimumHeight = Math.Max(olv.HeaderMinimumHeight, (int)Math.Round(olv.Font.GetHeight() * 1.0f) + 14); // comfortable padding above and below the header text
             var sel = ModernTheme.Blend(t.Accent, t.Surface, 0.18f);
             olv.SelectedBackColor = sel; olv.SelectedForeColor = t.Text;
             olv.UnfocusedSelectedBackColor = ModernTheme.Blend(t.Accent, t.Surface, 0.10f);
