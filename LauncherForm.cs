@@ -33,6 +33,7 @@ public class LauncherForm : KryptonForm
         Add(stack, "Control check", "Every Krypton Toolkit control and plain WinForms controls.", () => new ControlsForm());
         Add(stack, "Suite gallery", "Ribbon, Navigator, Workspace and Docking.", () => new GalleryForm());
         Add(stack, "Krypton Studio", "A full Visual Studio-style IDE built with Krypton.", () => new Fungusware.WinFormsThemes.Demo.VsClone.VsCloneForm());
+        Add(stack, "Lists", "ObjectListView with themed header, rows and empty message.", () => new ListForm());
         Shown += (_, _) => ThemeApplier.Apply(this, ModernTheme.Light); // controls exist only once the form is shown
     }
 

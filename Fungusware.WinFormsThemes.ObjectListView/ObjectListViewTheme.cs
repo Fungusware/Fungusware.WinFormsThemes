@@ -38,6 +38,7 @@ namespace Fungusware.WinFormsThemes
 
         static void StyleObjectListView(ObjectListView olv, Tokens t)
         {
+            bool recolour = olv.BackColor != t.Surface || olv.ForeColor != t.Text; // rows made earlier keep their old colours
             olv.BackColor = t.Surface; olv.ForeColor = t.Text; olv.BorderStyle = BorderStyle.None;
             olv.HeaderUsesThemes = false;
             var h = new HeaderFormatStyle();
@@ -49,6 +50,7 @@ namespace Fungusware.WinFormsThemes
             h.Hot.BackColor = ModernTheme.Blend(t.Accent, t.SurfaceAlt, 0.10f);
             h.Pressed.BackColor = ModernTheme.Blend(t.Accent, t.SurfaceAlt, 0.20f);
             olv.HeaderFormatStyle = h;
+            olv.HeaderMinimumHeight = Math.Max(olv.HeaderMinimumHeight, (int)Math.Round(olv.Font.GetHeight() * 1.0f) + 18); // comfortable padding above and below the header text
             var sel = ModernTheme.Blend(t.Accent, t.Surface, 0.18f);
             olv.SelectedBackColor = sel; olv.SelectedForeColor = t.Text;
             olv.UnfocusedSelectedBackColor = ModernTheme.Blend(t.Accent, t.Surface, 0.10f);
@@ -93,6 +95,7 @@ namespace Fungusware.WinFormsThemes
                 msg.BackColor = t.SurfaceAlt; msg.BorderColor = t.Border; msg.TextColor = t.TextMuted;
                 msg.Font = new Font("Segoe UI", 9.5f); msg.CornerRounding = 8f;
             }
+            if (recolour && olv.GetItemCount() > 0) olv.RefreshObjects(olv.Objects.Cast<object>().ToList());
             olv.Invalidate();
         }
     }
