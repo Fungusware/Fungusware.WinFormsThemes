@@ -8,11 +8,16 @@ namespace Fungusware.WinFormsThemes
     /// </summary>
     public static class StatusColors
     {
+        /// <summary>True when the active theme is dark.</summary>
         public static bool IsDark => ModernTheme.IsDark(ThemeApplier.Current);
 
+        /// <summary>Text or icon colour for success, readable on light and dark themes.</summary>
         public static Color Success => IsDark ? Color.FromArgb(0x5F, 0xD3, 0x8A) : Color.DarkGreen;
+        /// <summary>Text or icon colour for a warning.</summary>
         public static Color Warning => IsDark ? Color.FromArgb(0xFF, 0xB4, 0x54) : Color.Orange;
+        /// <summary>Text or icon colour for an error.</summary>
         public static Color Error => IsDark ? Color.FromArgb(0xFF, 0x7A, 0x8A) : Color.Crimson;
+        /// <summary>Text or icon colour for a fatal error.</summary>
         public static Color Fatal => IsDark ? Color.FromArgb(0xFF, 0x5C, 0x5C) : Color.Red;
 
         /// <summary>Row background for a job that is running right now.</summary>

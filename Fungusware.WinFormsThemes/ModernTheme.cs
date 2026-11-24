@@ -31,6 +31,7 @@ namespace Fungusware.WinFormsThemes
         /// <summary>Tone for menu bars, toolbars and the status bar: a step darker than the form so they read as chrome.</summary>
         public static Color Chrome(Tokens t) => Blend(t.Border, t.BorderStrong, 0.88f);
 
+        /// <summary>Windows 11 light.</summary>
         public static readonly Tokens FluentLight = new(
             Canvas: Color.FromArgb(0xF3, 0xF4, 0xF7),
             Surface: Color.White,
@@ -46,6 +47,7 @@ namespace Fungusware.WinFormsThemes
             Disabled: Color.FromArgb(0xA8, 0xAE, 0xBA),
             Name: "Fluent Light");
 
+        /// <summary>Windows 11 dark.</summary>
         public static readonly Tokens FluentDark = new(
             Canvas: Color.FromArgb(0x14, 0x17, 0x1D),
             Surface: Color.FromArgb(0x1E, 0x22, 0x2B),
@@ -106,6 +108,7 @@ namespace Fungusware.WinFormsThemes
         public static Tokens Light => FluentLight;
         public static Tokens Dark => FluentDark;
 
+        /// <summary>Every built-in theme, in menu order. Saved theme names are looked up here.</summary>
         public static readonly Tokens[] All = { FluentLight, FluentDark, MaterialLight, MaterialDark, SolarizedLight, SolarizedDark, Nord, Dracula, NeonSynthwave, Bezier };
 
         /// <summary>True when the window background is dark (drives the title bar and scroll bar style).</summary>

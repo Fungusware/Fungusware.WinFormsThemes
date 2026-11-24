@@ -15,5 +15,11 @@
     <PackageTags>winforms;theme;dark-mode;flat;fluent</PackageTags>
     <RepositoryUrl>https://github.com/Fungusware/Fungusware.WinFormsThemes</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Fungusware/Fungusware.WinFormsThemes</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 </Project>

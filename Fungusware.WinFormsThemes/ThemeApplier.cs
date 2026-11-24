@@ -23,6 +23,7 @@ namespace Fungusware.WinFormsThemes
         static extern int SetWindowTheme(IntPtr hwnd, string subAppName, string subIdList);
 
         // Native scroll bars follow the Windows theme of the control, so dark themes ask for the dark one.
+        /// <summary>Asks Windows for dark or light native scroll bars (and dark item-view chrome) on a control, following the theme. For adapters and stylers.</summary>
         public static void ScrollBarTheme(Control c, Tokens t, string darkClass = "DarkMode_Explorer")
         {
             void Set() { try { bool d = ModernTheme.IsDark(t); SetWindowTheme(c.Handle, d ? darkClass : null, null); try { AllowDarkModeForWindow(c.Handle, d); } catch { } SendMessage(c.Handle, 0x031A, IntPtr.Zero, IntPtr.Zero); } catch { } }
@@ -50,6 +51,7 @@ namespace Fungusware.WinFormsThemes
         static readonly ConditionalWeakTable<Form, object> ThemedForms = new();
         static bool _installed;
 
+        /// <summary>The active theme. Read it when you draw, so a theme switch only needs an Invalidate.</summary>
         public static Tokens Current { get; private set; } = ModernTheme.FluentLight;
 
         /// <summary>Raised after the theme has been switched at run time.</summary>
@@ -65,7 +67,9 @@ namespace Fungusware.WinFormsThemes
         /// <summary>Stores the chosen theme name. Called whenever the theme is switched with save = true.</summary>
         public static Action<string> WriteSavedThemeName { get; set; }
 
+        /// <summary>Optional: receives non-fatal problems (a saved theme that cannot be read or written).</summary>
         public static Action<string> LogWarning { get; set; }
+        /// <summary>Optional: receives the exception when a control cannot be styled. Styling of other controls goes on.</summary>
         public static Action<string, Exception> LogError { get; set; }
 
         static readonly List<(Type Type, Action<Control, Tokens> Apply)> Stylers = new();
@@ -102,7 +106,7 @@ namespace Fungusware.WinFormsThemes
 
         /// <summary>
         /// Switches to <paramref name="t"/> and themes one control tree, for apps that manage the Krypton palette themselves
-        /// (see <see cref="ModernTheme.Build"/>) instead of calling <see cref="Install"/>.
+        /// (see <c>KryptonTheme.Build</c> in the Krypton package) instead of calling <see cref="Install"/>.
         /// </summary>
         public static void Apply(Control root, Tokens t)
         {
@@ -233,6 +237,7 @@ namespace Fungusware.WinFormsThemes
         }
 
         // Inputs that fill a table row would touch each other; give them a little room.
+        /// <summary>Gives a fill-docked input in a table row a little vertical margin so neighbouring inputs do not touch.</summary>
         public static void Breathe(Control c)
         {
             if (c.Dock == DockStyle.Fill && c.Parent is TableLayoutPanel && !Hooked.TryGetValue(c, out _))
@@ -323,6 +328,7 @@ namespace Fungusware.WinFormsThemes
         const int ButtonPadX = 6;
         static readonly ConditionalWeakTable<ToolStripItem, object> PaddedItems = new();
 
+        /// <summary>Adds a little horizontal padding around toolbar buttons (not menu items or drop-down lists), once per item.</summary>
         public static void PadToolbarButtons(ToolStrip ts)
         {
             if (ts is ToolStripDropDown or MenuStrip or StatusStrip) return;
@@ -419,6 +425,7 @@ namespace Fungusware.WinFormsThemes
         }
 
         static readonly ConditionalWeakTable<Control, object> Hooked = new();
+        /// <summary>Marks a control and returns whether it was already marked. Use it to attach an event handler only once per control.</summary>
         public static bool Tagged(Control c)
         {
             if (Hooked.TryGetValue(c, out _)) return true;
@@ -426,6 +433,7 @@ namespace Fungusware.WinFormsThemes
             return false;
         }
 
+        /// <summary>A rectangle with rounded corners as a path (radius is clamped to half the shorter side).</summary>
         public static GraphicsPath RoundedRect(RectangleF r, float rad)
         {
             float d = Math.Min(rad * 2, Math.Min(r.Width, r.Height));

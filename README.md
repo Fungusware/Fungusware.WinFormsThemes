@@ -31,6 +31,16 @@ A full IDE built from Krypton controls and these themes, to show what the librar
 
 Open it from the launcher, or set `KM_FORM=4`. It opens this repository's own solution, and builds go to a temp folder so it can rebuild itself while running. The window is in `VsClone/`. The code editor is its own project, [`Fungusware.WinFormsThemes.Editor`](Fungusware.WinFormsThemes.Editor/README.md), with no Krypton dependency.
 
+## Documentation
+
+| Page | Read it for |
+|---|---|
+| [How it works](docs/how-it-works.md) | **Start here.** The idea, the packages, what happens at start-up, when a form opens and when the theme changes |
+| [Getting started](docs/getting-started.md) | Copy-paste setup for plain WinForms, Krypton, ObjectListView; theme picker, saving the choice, custom controls, troubleshooting |
+| [Adapters](docs/adapters.md) | What the Krypton and ObjectListView packages do, and how to write your own |
+| [Themes and tokens](docs/themes-and-tokens.md) | The 12 colours, the ten themes, making your own, status colours, themed controls |
+| [Migrating](docs/migrating-from-kryptonmodern.md) | Old names to new names |
+
 ## Packages
 
 The theme is the master. `Fungusware.WinFormsThemes` holds the tokens, themes and the engine; the other packages are adapters that carry the active theme to a control family. Install only what you use.
@@ -93,26 +103,7 @@ list boxes, headers, splitters) picks the theme up from the palette with no extr
 
 ## Create your own theme
 
-A theme is a `Tokens` record. Copy one of the themes in `ModernTheme.cs` and change the colours:
-
-```csharp
-public static readonly Tokens MyTheme = T("My Theme", radius: 6, card: 10,
-    canvas:   0x101418,  // window background
-    surface:  0x1A2026,  // cards and inputs
-    alt:      0x252C34,  // hover and subtle fills
-    border:   0x2F3842,  // hairlines
-    strong:   0x6B7886,  // input and checkbox borders
-    text:     0xEEF2F6,
-    muted:    0x9AA7B4,  // secondary text
-    accent:   0x4CC2FF,
-    hover:    0x7AD3FF,
-    pressed:  0x2FA9E8,
-    onAccent: 0x06202E,  // text on top of the accent colour
-    disabled: 0x5A6674);
-```
-
-Add it to the `All` array if you want it in the demo's theme picker. Keep text contrast at 4.5:1 or
-better against `surface`, and `onAccent` readable against `accent`.
+A theme is a `Tokens` record of 12 colours. Copy an existing one and change the colours; the full recipe, with what each colour is for and how to pick them, is in [Themes and tokens](docs/themes-and-tokens.md#make-your-own-theme). Then `ThemeApplier.SetTheme(MyThemes.Forest)`.
 
 ## Gotchas
 
@@ -122,12 +113,10 @@ better against `surface`, and `onAccent` readable against `accent`.
   `SelectedIndexChanged` handler while a Krypton combo box is still open can crash the app with an
   `AccessViolationException`. If you change theme from a combo box, apply it after
   `DropDownClosed` / via `BeginInvoke`, as `DemoForm.cs` does.
-- **Call `ThemeApplier.Apply` after the form is shown** (the `Shown` event), not in the constructor: in a `KryptonForm` the child controls are not reachable yet, so nothing gets themed and focused primary buttons look disabled.
+- **If you call `ThemeApplier.Apply(form, tokens)` yourself (advanced), call it after the form is shown** (the `Shown` event), not in the constructor: in a `KryptonForm` the child controls are not reachable yet, so nothing gets themed and focused primary buttons look disabled.
 - **Use `KryptonForm`** for the window, otherwise you keep the standard Windows title bar.
-- **Drop-down list colours** are set per combo box. `ThemeApplier.Apply` does this for every
+- **Drop-down list colours** are set per combo box. The engine does this for every
   `KryptonComboBox` it finds; call it again after you add controls at runtime.
-- Plain `ProgressBar`, `DateTimePicker` and `TabControl` cannot be recoloured, so `ThemeApplier`
-  swaps them for themed equivalents when it walks the form.
 
 ## Run the demo
 

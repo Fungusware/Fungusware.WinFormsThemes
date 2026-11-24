@@ -38,6 +38,7 @@ public class CardPanel : Panel
 }
 
 /// <summary>Thin pill progress bar (Krypton has none).</summary>
+/// <summary>A thin rounded progress bar painted from <see cref="Tokens"/>. <see cref="Value"/> is 0 to 100.</summary>
 public class PillProgress : Control
 {
     int _value;
