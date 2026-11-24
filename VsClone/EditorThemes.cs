@@ -1,10 +1,10 @@
 // Copyright (c) 2026 Fungusware. MIT License - see LICENSE.
 using System.Text.RegularExpressions;
-using KryptonModern.Editor;
+using Fungusware.WinFormsThemes.Editor;
 
-namespace KryptonModern.VsClone;
+namespace Fungusware.WinFormsThemes.Demo.VsClone;
 
-/// <summary>The adapter between KryptonModern themes and the standalone editor: surface/accent from the theme, token colours per theme family.</summary>
+/// <summary>The adapter between Fungusware.WinFormsThemes and the standalone editor: surface/accent from the theme, token colours per theme family.</summary>
 public static class EditorThemes
 {
     static Color C(int rgb) => Color.FromArgb((rgb >> 16) & 255, (rgb >> 8) & 255, rgb & 255);

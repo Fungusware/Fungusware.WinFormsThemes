@@ -1,4 +1,4 @@
-# KryptonModern.Editor
+# Fungusware.WinFormsThemes.Editor
 
 A themeable WinForms code editor control. Syntax colouring, line numbers, minimap, breakpoint margin, brace matching, auto-close and auto-indent, completion list, find highlighting, squiggles, undo/redo. Plain WinForms, no third-party packages (it does not need Krypton). By **Fungusware**, MIT license.
 
@@ -7,7 +7,7 @@ It is the editor inside Krypton Studio (`KM_FORM=4` in the demo).
 ## Use it
 
 ```csharp
-using KryptonModern.Editor;
+using Fungusware.WinFormsThemes.Editor;
 
 var editor = new CodeEditor { Dock = DockStyle.Fill };
 editor.Language = Languages.FromPath("Program.cs");   // or Languages.CSharp

@@ -2,7 +2,7 @@
 using Krypton.Navigator;
 using Krypton.Toolkit;
 
-namespace KryptonModern.VsClone;
+namespace Fungusware.WinFormsThemes.Demo.VsClone;
 
 /// <summary>Small "enter a value" dialog.</summary>
 public sealed class PromptDialog : KryptonForm
@@ -87,7 +87,7 @@ public sealed class AboutDialog : KryptonForm
         string[] lines =
         {
             $"Krypton Toolkit {ver}",
-            "KryptonModern themes (Fungusware)",
+            "Fungusware.WinFormsThemes",
             "",
             "Docking, workspace tabs, navigator, palettes,",
             "buttons, text boxes, combo boxes, dialogs, split containers:",

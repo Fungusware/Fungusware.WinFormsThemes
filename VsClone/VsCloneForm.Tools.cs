@@ -4,9 +4,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Krypton.Toolkit;
-using KryptonModern.Editor;
+using Fungusware.WinFormsThemes.Editor;
 
-namespace KryptonModern.VsClone;
+namespace Fungusware.WinFormsThemes.Demo.VsClone;
 
 public partial class VsCloneForm
 {

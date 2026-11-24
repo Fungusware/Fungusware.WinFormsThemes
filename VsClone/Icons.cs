@@ -2,7 +2,7 @@
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 
-namespace KryptonModern.VsClone;
+namespace Fungusware.WinFormsThemes.Demo.VsClone;
 
 /// <summary>Icons drawn in code: Segoe Fluent glyphs tinted with the theme, plus little file-type badges.</summary>
 public static class Ico

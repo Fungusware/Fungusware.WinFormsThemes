@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Fungusware. MIT License - see LICENSE.
 using Krypton.Toolkit;
 
-namespace KryptonModern;
+namespace Fungusware.WinFormsThemes.Demo;
 
 /// <summary>Every control type Xackup uses, left unstyled except for the global palette.
 /// Shows which ones follow the theme and which need work.</summary>
@@ -16,7 +16,7 @@ public class ControlsForm : KryptonForm
         AutoScaleMode = AutoScaleMode.Dpi;
         var t = ModernTheme.All[int.TryParse(Environment.GetEnvironmentVariable("KM_THEME"), out var ti) ? ti : 0];
         mgr = new KryptonManager { GlobalPaletteMode = PaletteMode.Custom };
-        mgr.GlobalCustomPalette = ModernTheme.Build(t);
+        mgr.GlobalCustomPalette = KryptonTheme.Build(t);
         BackColor = t.Canvas;
 
         var root = new KryptonPanel { Dock = DockStyle.Fill };
@@ -130,7 +130,7 @@ public class ControlsForm : KryptonForm
         picker.SelectedIndexChanged += (_, _) =>
         {
             var tk = ModernTheme.All[picker.SelectedIndex];
-            var np = ModernTheme.Build(tk);
+            var np = KryptonTheme.Build(tk);
             mgr.GlobalCustomPalette = np;
             BackColor = tk.Canvas;
             ThemeApplier.Apply(this, tk);

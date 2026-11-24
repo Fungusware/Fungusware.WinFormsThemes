@@ -5,12 +5,12 @@ using Krypton.Docking;
 using Krypton.Navigator;
 using Krypton.Toolkit;
 using Krypton.Workspace;
-using KryptonModern.Editor;
+using Fungusware.WinFormsThemes.Editor;
 
-namespace KryptonModern.VsClone;
+namespace Fungusware.WinFormsThemes.Demo.VsClone;
 
 /// <summary>
-/// "Krypton Studio": a Visual Studio-style IDE built only from Krypton Toolkit controls + KryptonModern themes.
+/// "Krypton Studio": a Visual Studio-style IDE built only from Krypton Toolkit controls + Fungusware.WinFormsThemes.
 /// Open with KM_FORM=4 (or the launcher).
 /// </summary>
 public partial class VsCloneForm : KryptonForm
@@ -328,7 +328,7 @@ public partial class VsCloneForm : KryptonForm
     {
         _t = t; _cfg.Theme = t.Name;
         var old = _palette;
-        _palette = ModernTheme.Build(t);
+        _palette = KryptonTheme.Build(t);
         _manager.GlobalPaletteMode = PaletteMode.Custom;
         _manager.GlobalCustomPalette = _palette;
         old?.Dispose();

@@ -1,111 +1,25 @@
 // Copyright (c) 2026 Fungusware. MIT License - see LICENSE.
+using System.Drawing;
+using System.Windows.Forms;
 using Krypton.Toolkit;
+using static Fungusware.WinFormsThemes.ModernTheme;
 
-namespace KryptonModern;
+namespace Fungusware.WinFormsThemes;
 
-/// <summary>Colour tokens for one appearance (light or dark).</summary>
-public sealed record Tokens(
-    Color Canvas,       // window background
-    Color Surface,      // cards, inputs
-    Color SurfaceAlt,   // hover / subtle fills
-    Color Border,
-    Color BorderStrong,
-    Color Text,
-    Color TextMuted,
-    Color Accent,
-    Color AccentHover,
-    Color AccentPressed,
-    Color OnAccent,
-    Color Disabled,
-    string Name = "Theme",
-    float Radius = 6f,
-    float CardRadius = 10f);
-
-/// <summary>
-/// A Krypton palette that imitates Windows 11 / modern web controls:
-/// flat fills, 1px hairlines, rounded corners, one accent colour.
-/// </summary>
-public static partial class ModernTheme
+/// <summary>Builds a Krypton palette from <see cref="Tokens"/> and plugs Krypton into the theme engine (see <see cref="Register"/>).</summary>
+public static partial class KryptonTheme
 {
-    public static readonly Tokens Light = new(
-        Canvas: Color.FromArgb(0xF3, 0xF4, 0xF7),
-        Surface: Color.White,
-        SurfaceAlt: Color.FromArgb(0xEB, 0xED, 0xF2),
-        Border: Color.FromArgb(0xDD, 0xE0, 0xE7),
-        BorderStrong: Color.FromArgb(0x9A, 0xA1, 0xB0),
-        Text: Color.FromArgb(0x1C, 0x21, 0x2B),
-        TextMuted: Color.FromArgb(0x5B, 0x63, 0x73),
-        Accent: Color.FromArgb(0x25, 0x63, 0xEB),
-        AccentHover: Color.FromArgb(0x1D, 0x4E, 0xC7),
-        AccentPressed: Color.FromArgb(0x17, 0x3F, 0xA3),
-        OnAccent: Color.White,
-        Disabled: Color.FromArgb(0xA8, 0xAE, 0xBA), Name: "Fluent Light");
+    /// <summary>Base font size (pt, Segoe UI) used by the palette. Set before the theme is installed.</summary>
+    public static float FontSize { get; set; } = 9f;
 
-    public static readonly Tokens Dark = new(
-        Canvas: Color.FromArgb(0x14, 0x17, 0x1D),
-        Surface: Color.FromArgb(0x1E, 0x22, 0x2B),
-        SurfaceAlt: Color.FromArgb(0x2A, 0x2F, 0x3A),
-        Border: Color.FromArgb(0x32, 0x38, 0x45),
-        BorderStrong: Color.FromArgb(0x6B, 0x74, 0x86),
-        Text: Color.FromArgb(0xEE, 0xF0, 0xF4),
-        TextMuted: Color.FromArgb(0x9A, 0xA3, 0xB5),
-        Accent: Color.FromArgb(0x5B, 0x8D, 0xFF),
-        AccentHover: Color.FromArgb(0x7A, 0xA3, 0xFF),
-        AccentPressed: Color.FromArgb(0x45, 0x78, 0xEB),
-        OnAccent: Color.FromArgb(0x0B, 0x13, 0x28),
-        Disabled: Color.FromArgb(0x5A, 0x62, 0x73), Name: "Fluent Dark");
-
-
-
-    static Color C(int rgb) => Color.FromArgb((rgb >> 16) & 255, (rgb >> 8) & 255, rgb & 255);
-
-    static Tokens T(string name, float radius, float card, int canvas, int surface, int alt, int border, int strong,
-                    int text, int muted, int accent, int hover, int pressed, int onAccent, int disabled) =>
-        new(C(canvas), C(surface), C(alt), C(border), C(strong), C(text), C(muted),
-            C(accent), C(hover), C(pressed), C(onAccent), C(disabled), name, radius, card);
-
-    public static readonly Tokens MaterialLight = T("Material Light", 4, 12,
-        0xF7F2FA, 0xFFFFFF, 0xECE6F0, 0xCAC4D0, 0x79747E, 0x1D1B20, 0x49454F,
-        0x6750A4, 0x5B4698, 0x4F3D8A, 0xFFFFFF, 0xB0AAB5);
-
-    public static readonly Tokens MaterialDark = T("Material Dark", 4, 12,
-        0x141218, 0x211F26, 0x2B2930, 0x49454F, 0x938F99, 0xE6E0E9, 0xCAC4D0,
-        0xD0BCFF, 0xE0D0FF, 0xB9A2F2, 0x381E72, 0x6E6A75);
-
-    public static readonly Tokens SolarizedLight = T("Solarized Light", 2, 4,
-        0xEEE8D5, 0xFDF6E3, 0xE6DFC8, 0xD6CFB6, 0x93A1A1, 0x586E75, 0x657B83,
-        0x268BD2, 0x2E9BE5, 0x1F78B4, 0x002B36, 0xA3ABA6);
-
-    public static readonly Tokens SolarizedDark = T("Solarized Dark", 2, 4,
-        0x002B36, 0x073642, 0x0E4452, 0x1C5565, 0x586E75, 0x93A1A1, 0x7F9296,
-        0x268BD2, 0x4AA3E8, 0x1F78B4, 0x002B36, 0x586E75);
-
-    public static readonly Tokens Nord = T("Nord", 4, 8,
-        0x2E3440, 0x3B4252, 0x434C5E, 0x4C566A, 0x7B88A1, 0xECEFF4, 0xAEB8CB,
-        0x88C0D0, 0x9FD0DE, 0x81A1C1, 0x2E3440, 0x6B7790);
-
-    public static readonly Tokens Dracula = T("Dracula", 6, 10,
-        0x21222C, 0x282A36, 0x343746, 0x44475A, 0x6272A4, 0xF8F8F2, 0xB0B6D0,
-        0xBD93F9, 0xCDA9FF, 0xA47BE8, 0x282A36, 0x6272A4);
-
-    public static readonly Tokens NeonSynthwave = T("Neon Synthwave", 8, 14,
-        0x0B0618, 0x150C2E, 0x20143F, 0x35235F, 0x7A5FBF, 0xF4ECFF, 0xB5A3DD,
-        0xFF3CAC, 0xFF6AC1, 0xE0208F, 0x1A0524, 0x6A5A8E);
-
-        // Approximation of DevExpress "Bezier": cool grey canvas, white surfaces, tight corners, steel-blue accent.
-    public static readonly Tokens Bezier = T("Bezier", 2, 3,
-        0xEDEFF2, 0xFFFFFF, 0xE1E5EA, 0xCDD3DA, 0x8A94A0, 0x2B3036, 0x5A636D,
-        0x3872B8, 0x2F63A3, 0x265389, 0xFFFFFF, 0xAAB1B9);
-
-    public static readonly Tokens[] All = { Light, Dark, MaterialLight, MaterialDark, SolarizedLight, SolarizedDark, Nord, Dracula, NeonSynthwave, Bezier };
     public static KryptonCustomPaletteBase Build(Tokens t)
     {
         var p = new KryptonCustomPaletteBase();
         p.BasePalette = KryptonManager.GetPaletteForMode(PaletteMode.Microsoft365Silver);
 
-        var font = new Font("Segoe UI Variable Text", 9.5f);
-        if (font.Name != "Segoe UI Variable Text") font = new Font("Segoe UI", 9.5f);
-        var semi = new Font(font.FontFamily, 9.5f, FontStyle.Bold);
+        // 9pt Segoe UI matches the metrics the designer layouts were drawn with, so labels don't outgrow their slots.
+        var font = new Font("Segoe UI", FontSize);
+        var semi = new Font(font.FontFamily, FontSize, FontStyle.Bold);
 
         // ---- window + panels ------------------------------------------
         SolidBack(p.FormStyles.FormMain.StateCommon.Back, t.Canvas);
@@ -126,6 +40,8 @@ public static partial class ModernTheme
         Solid(p.PanelStyles.PanelCustom1.StateCommon, t.Surface);
         // Custom2 = side nav
         Solid(p.PanelStyles.PanelCustom2.StateCommon, t.Canvas);
+        // Custom3 = bar tone (status bar and other bottom bars)
+        Solid(p.PanelStyles.PanelCustom3.StateCommon, Chrome(t));
 
         // ---- labels ----------------------------------------------------
         p.LabelStyles.LabelNormalControl.StateCommon.ShortText.Color1 = t.Text;
@@ -142,6 +58,13 @@ public static partial class ModernTheme
         p.LabelStyles.LabelBoldControl.StateCommon.ShortText.Font = semi;
         p.LabelStyles.LabelTitleControl.StateCommon.ShortText.Color1 = t.Text;
         p.LabelStyles.LabelTitleControl.StateCommon.ShortText.Font = new Font(font.FontFamily, 20f, FontStyle.Bold);
+        // hint / explanation text: a step softer than body text, but still readable on every theme
+        var hint = Blend(t.Text, t.Canvas, 0.72f);
+        foreach (var l in new[] { p.LabelStyles.LabelItalicControl, p.LabelStyles.LabelItalicPanel, p.LabelStyles.LabelKeyTip, p.LabelStyles.LabelSuperTip })
+        {
+            l.StateCommon.ShortText.Color1 = hint; l.StateNormal.ShortText.Color1 = hint;
+            l.StateDisabled.ShortText.Color1 = t.Disabled;
+        }
         // Custom1 = muted caption
         p.LabelStyles.LabelCustom1.StateCommon.ShortText.Color1 = t.TextMuted;
         p.LabelStyles.LabelCustom1.StateCommon.ShortText.Font = new Font(font.FontFamily, 9f);
@@ -236,7 +159,7 @@ public static partial class ModernTheme
         cb.UncheckedNormal = Box(t, false, t.BorderStrong, t.Surface);
         cb.UncheckedTracking = Box(t, false, t.Accent, t.Surface);
         cb.UncheckedPressed = Box(t, false, t.AccentPressed, t.SurfaceAlt);
-        cb.UncheckedDisabled = Box(t, false, t.Border, t.SurfaceAlt);
+        cb.UncheckedDisabled = Box(t, false, t.Disabled, t.SurfaceAlt);
         cb.CheckedNormal = Box(t, true, t.Accent, t.Accent);
         cb.CheckedTracking = Box(t, true, t.AccentHover, t.AccentHover);
         cb.CheckedPressed = Box(t, true, t.AccentPressed, t.AccentPressed);
@@ -245,13 +168,14 @@ public static partial class ModernTheme
         rb.UncheckedNormal = Dot(t, false, t.BorderStrong);
         rb.UncheckedTracking = Dot(t, false, t.Accent);
         rb.UncheckedPressed = Dot(t, false, t.AccentPressed);
-        rb.UncheckedDisabled = Dot(t, false, t.Border);
+        rb.UncheckedDisabled = Dot(t, false, t.Disabled);
         rb.CheckedNormal = Dot(t, true, t.Accent);
         rb.CheckedTracking = Dot(t, true, t.AccentHover);
         rb.CheckedPressed = Dot(t, true, t.AccentPressed);
         rb.CheckedDisabled = Dot(t, true, t.Disabled);
 
         BuildSuite(p, t, font, semi);
+
         return p;
     }
 
@@ -262,7 +186,7 @@ public static partial class ModernTheme
         var bmp = new Bitmap(G, G);
         using var g = Graphics.FromImage(bmp);
         g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-        using var path = CardPanel.Round(new RectangleF(2, 2, G - 5, G - 5), Math.Min(4, t.Radius));
+        using var path = ThemeApplier.RoundedRect(new RectangleF(2, 2, G - 5, G - 5), Math.Min(4, t.Radius));
         using (var b = new SolidBrush(fill)) g.FillPath(b, path);
         using (var pen = new Pen(edge, 1.5f)) g.DrawPath(pen, path);
         if (on)
@@ -313,10 +237,4 @@ public static partial class ModernTheme
         s.Back.Color1 = back; s.Back.Color2 = back;
         s.Border.Color1 = border; s.Border.Color2 = border;
     }
-
-    public static Color Blend(Color a, Color b, float amountOfA) =>
-        Color.FromArgb(
-            (int)(a.R * amountOfA + b.R * (1 - amountOfA)),
-            (int)(a.G * amountOfA + b.G * (1 - amountOfA)),
-            (int)(a.B * amountOfA + b.B * (1 - amountOfA)));
 }

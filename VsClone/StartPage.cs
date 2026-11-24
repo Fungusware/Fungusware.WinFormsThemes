@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Fungusware. MIT License - see LICENSE.
 using Krypton.Toolkit;
 
-namespace KryptonModern.VsClone;
+namespace Fungusware.WinFormsThemes.Demo.VsClone;
 
 /// <summary>The "start window": recent projects, get-started cards and a one-click theme strip.</summary>
 public sealed class StartPage : KryptonPanel
@@ -16,7 +16,7 @@ public sealed class StartPage : KryptonPanel
         Padding = new Padding(48, 36, 48, 36);
 
         var title = new KryptonLabel { Text = "Krypton Studio", LabelStyle = LabelStyle.TitlePanel, Location = new Point(48, 30) };
-        var sub = new KryptonLabel { Text = "Everything you see here is Krypton Toolkit, wearing the KryptonModern theme.", LabelStyle = LabelStyle.Custom1, Location = new Point(50, 90) };
+        var sub = new KryptonLabel { Text = "Everything you see here is Krypton Toolkit, wearing the Fungusware.WinFormsThemes theme.", LabelStyle = LabelStyle.Custom1, Location = new Point(50, 90) };
         Controls.Add(title); Controls.Add(sub);
 
         // ---- recent ---------------------------------------------------

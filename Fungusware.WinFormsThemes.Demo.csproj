@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <Authors>Fungusware</Authors>
+    <Company>Fungusware</Company>
+    <Copyright>Copyright (c) 2026 Fungusware</Copyright>
+    <Product>Fungusware.WinFormsThemes</Product>
+    <RootNamespace>Fungusware.WinFormsThemes.Demo</RootNamespace>
+    <AssemblyName>Fungusware.WinFormsThemes.Demo</AssemblyName>
+    <Description>Demo and gallery for Fungusware.WinFormsThemes.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Fungusware.WinFormsThemes\**;Fungusware.WinFormsThemes.Krypton\**;Fungusware.WinFormsThemes.ObjectListView\**;Fungusware.WinFormsThemes.Editor\**" />
+    <EmbeddedResource Remove="Fungusware.WinFormsThemes\**;Fungusware.WinFormsThemes.Krypton\**;Fungusware.WinFormsThemes.ObjectListView\**;Fungusware.WinFormsThemes.Editor\**" />
+    <None Remove="Fungusware.WinFormsThemes\**;Fungusware.WinFormsThemes.Krypton\**;Fungusware.WinFormsThemes.ObjectListView\**;Fungusware.WinFormsThemes.Editor\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Fungusware.WinFormsThemes\Fungusware.WinFormsThemes.csproj" />
+    <ProjectReference Include="Fungusware.WinFormsThemes.Krypton\Fungusware.WinFormsThemes.Krypton.csproj" />
+    <ProjectReference Include="Fungusware.WinFormsThemes.Editor\Fungusware.WinFormsThemes.Editor.csproj" />
+  </ItemGroup>
+</Project>

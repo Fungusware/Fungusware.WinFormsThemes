@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Fungusware.WinFormsThemes.Demo.csproj" />
+  <Project Path="Fungusware.WinFormsThemes/Fungusware.WinFormsThemes.csproj" />
+  <Project Path="Fungusware.WinFormsThemes.Krypton/Fungusware.WinFormsThemes.Krypton.csproj" />
+  <Project Path="Fungusware.WinFormsThemes.ObjectListView/Fungusware.WinFormsThemes.ObjectListView.csproj" />
+  <Project Path="Fungusware.WinFormsThemes.Editor/Fungusware.WinFormsThemes.Editor.csproj" />
+</Solution>

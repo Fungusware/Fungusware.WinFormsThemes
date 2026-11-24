@@ -1,5 +1,5 @@
 // Copyright (c) 2026 Fungusware. MIT License - see LICENSE.
-namespace KryptonModern.Editor;
+namespace Fungusware.WinFormsThemes.Editor;
 
 /// <summary>Built-in languages and a lookup by file name.</summary>
 public static class Languages

@@ -1,5 +1,5 @@
 // Copyright (c) 2026 Fungusware. MIT License - see LICENSE.
-namespace KryptonModern.Editor;
+namespace Fungusware.WinFormsThemes.Editor;
 
 public sealed partial class CodeEditor
 {

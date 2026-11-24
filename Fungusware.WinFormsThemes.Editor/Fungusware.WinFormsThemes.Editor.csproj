@@ -4,18 +4,18 @@
     <UseWindowsForms>true</UseWindowsForms>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>KryptonModern.Editor</RootNamespace>
+    <RootNamespace>Fungusware.WinFormsThemes.Editor</RootNamespace>
     <Authors>Fungusware</Authors>
     <Company>Fungusware</Company>
     <Copyright>Copyright (c) 2026 Fungusware</Copyright>
     <Description>A fast, themeable WinForms code editor control with syntax highlighting, minimap and completion. No third-party dependencies.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageId>KryptonModern.Editor</PackageId>
-    <Version>2026.11.24.0644</Version>
+    <PackageId>Fungusware.WinFormsThemes.Editor</PackageId>
+    <Version>2026.11.24.1000</Version>
     <PackageTags>winforms;code-editor;syntax-highlighting;minimap;editor</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/Fungusware/KryptonModern</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/Fungusware/KryptonModern</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Fungusware/Fungusware.WinFormsThemes</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Fungusware/Fungusware.WinFormsThemes</PackageProjectUrl>
   </PropertyGroup>
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\" />

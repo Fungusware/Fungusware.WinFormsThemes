@@ -2,7 +2,7 @@
 using System.Drawing.Drawing2D;
 using System.Text.Json;
 
-namespace KryptonModern.VsClone;
+namespace Fungusware.WinFormsThemes.Demo.VsClone;
 
 /// <summary>TreeView that paints rows, chevrons, icons and selection from the active theme tokens.</summary>
 public sealed class ThemedTree : TreeView

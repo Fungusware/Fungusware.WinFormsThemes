@@ -2,7 +2,7 @@
 using Krypton.Toolkit;
 using System.Drawing.Drawing2D;
 
-namespace KryptonModern;
+namespace Fungusware.WinFormsThemes.Demo;
 
 public class DemoForm : KryptonForm
 {
@@ -182,7 +182,7 @@ public class DemoForm : KryptonForm
     {
         _t = t;
         var old = _palette;
-        _palette = ModernTheme.Build(t);
+        _palette = KryptonTheme.Build(t);
         _manager.GlobalPaletteMode = PaletteMode.Custom;
         _manager.GlobalCustomPalette = _palette;
         old?.Dispose();

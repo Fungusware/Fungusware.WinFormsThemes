@@ -1,13 +1,13 @@
 // Copyright (c) 2026 Fungusware. MIT License - see LICENSE.
 using Krypton.Toolkit;
 
-namespace KryptonModern;
+namespace Fungusware.WinFormsThemes.Demo;
 
 /// <summary>Start window for the demo: pick which test window to open. Closing a test window returns here.</summary>
 public class LauncherForm : KryptonForm
 {
     readonly KryptonManager _manager = new();
-    readonly KryptonCustomPaletteBase _palette = ModernTheme.Build(ModernTheme.Light);
+    readonly KryptonCustomPaletteBase _palette = KryptonTheme.Build(ModernTheme.Light);
 
     public LauncherForm()
     {
@@ -32,7 +32,7 @@ public class LauncherForm : KryptonForm
         Add(stack, "Settings demo", "A realistic settings page: forms, table, progress.", () => new DemoForm());
         Add(stack, "Control check", "Every Krypton Toolkit control and plain WinForms controls.", () => new ControlsForm());
         Add(stack, "Suite gallery", "Ribbon, Navigator, Workspace and Docking.", () => new GalleryForm());
-        Add(stack, "Krypton Studio", "A full Visual Studio-style IDE built with Krypton.", () => new KryptonModern.VsClone.VsCloneForm());
+        Add(stack, "Krypton Studio", "A full Visual Studio-style IDE built with Krypton.", () => new Fungusware.WinFormsThemes.Demo.VsClone.VsCloneForm());
         Shown += (_, _) => ThemeApplier.Apply(this, ModernTheme.Light); // controls exist only once the form is shown
     }
 

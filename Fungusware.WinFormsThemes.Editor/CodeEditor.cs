@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Fungusware. MIT License - see LICENSE.
 using System.Text;
 
-namespace KryptonModern.Editor;
+namespace Fungusware.WinFormsThemes.Editor;
 
 /// <summary>
 /// A themeable code editor: syntax colouring, line numbers, breakpoint margin, minimap, brace matching, auto-close and auto-indent,

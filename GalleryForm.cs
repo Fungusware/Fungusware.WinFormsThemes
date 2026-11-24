@@ -5,7 +5,7 @@ using Krypton.Ribbon;
 using Krypton.Toolkit;
 using Krypton.Workspace;
 
-namespace KryptonModern;
+namespace Fungusware.WinFormsThemes.Demo;
 
 /// <summary>
 /// Shows the wider Krypton suite (Ribbon, Navigator, Workspace, Docking) under every theme.
@@ -204,7 +204,7 @@ public class GalleryForm : KryptonForm
     void ApplyTheme(Tokens t)
     {
         var old = _palette;
-        _palette = ModernTheme.Build(t);
+        _palette = KryptonTheme.Build(t);
         _manager.GlobalPaletteMode = PaletteMode.Custom;
         _manager.GlobalCustomPalette = _palette;
         old?.Dispose();

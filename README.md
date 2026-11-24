@@ -1,6 +1,6 @@
-# KryptonModern
+# Fungusware.WinFormsThemes
 
-By **Fungusware**. Modern, flat themes for [Krypton Toolkit](https://github.com/Krypton-Suite/Standard-Toolkit) (WinForms).
+By **Fungusware**. Themes for WinForms apps, with adapters for [Krypton Toolkit](https://github.com/Krypton-Suite/Standard-Toolkit), ObjectListView and more.
 Windows 11 / modern-web look: flat fills, hairline borders, rounded corners, one accent colour,
 drawn check and radio glyphs, matching dark title bar. Ten themes included, and a theme is just
 twelve colours, so adding your own takes a minute.
@@ -29,63 +29,50 @@ A full IDE built from Krypton controls and these themes, to show what the librar
 |---|---|
 | ![Studio, Bezier](docs/screenshots/studio-bezier.png) | ![Studio, Dracula](docs/screenshots/studio-dracula.png) |
 
-Open it from the launcher, or set `KM_FORM=4`. It opens this repository's own solution, and builds go to a temp folder so it can rebuild itself while running. The window is in `VsClone/`. The code editor is its own project, [`KryptonModern.Editor`](KryptonModern.Editor/README.md), with no Krypton dependency.
+Open it from the launcher, or set `KM_FORM=4`. It opens this repository's own solution, and builds go to a temp folder so it can rebuild itself while running. The window is in `VsClone/`. The code editor is its own project, [`Fungusware.WinFormsThemes.Editor`](Fungusware.WinFormsThemes.Editor/README.md), with no Krypton dependency.
+
+## Packages
+
+The theme is the master. `Fungusware.WinFormsThemes` holds the tokens, themes and the engine; the other packages are adapters that carry the active theme to a control family. Install only what you use.
+
+| Package | What it does | Depends on |
+|---|---|---|
+| `Fungusware.WinFormsThemes` | Colour tokens, ten themes, the theme engine (saved theme, switch at run time, restyles plain WinForms controls as forms open), flat menu/toolbar renderer, status colours, `CardPanel`, `PillProgress`, `ModernTabControl` | nothing |
+| `Fungusware.WinFormsThemes.Krypton` | Builds the Krypton palette from the active theme (forms, buttons, inputs, grid, Navigator, Ribbon, Docking) and styles Krypton controls | the core, `Krypton.*` |
+| `Fungusware.WinFormsThemes.ObjectListView` | Themed ObjectListView headers, selection, empty-list message and column sizing | the core, `ObjectListView.Repack.NET6Plus` |
+| `Fungusware.WinFormsThemes.Editor` | A fast code editor control with syntax highlighting, minimap and completion ([readme](Fungusware.WinFormsThemes.Editor/README.md)) | nothing |
 
 ## Requirements
 
 - Windows, .NET 8 (`net8.0-windows`) or newer
-- NuGet package `Krypton.Toolkit` (the demo uses `105.26.7.201`)
-- Optional, only if you use them: `Krypton.Navigator`, `Krypton.Ribbon`, `Krypton.Docking`, `Krypton.Workspace` (same version)
+- For the Krypton adapter: `Krypton.Toolkit` (the demo uses `105.26.7.201`), and optionally `Krypton.Navigator`, `Krypton.Ribbon`, `Krypton.Docking`, `Krypton.Workspace` (same version)
 
 ## Quick start
 
-1. Add the Krypton Toolkit package to your WinForms project:
+```
+dotnet add package Fungusware.WinFormsThemes
+dotnet add package Fungusware.WinFormsThemes.Krypton       # if you use Krypton
+dotnet add package Fungusware.WinFormsThemes.ObjectListView # if you use ObjectListView
+```
 
-   ```
-   dotnet add package Krypton.Toolkit
-   ```
+Register the adapters you use, then install the engine once, before the first form is created:
 
-2. Copy these four files into your project (they have no other dependencies):
+```csharp
+using Fungusware.WinFormsThemes;
 
-   | File | What it is |
-   |---|---|
-   | `ModernTheme.cs` | The colour tokens, the nine themes, and `ModernTheme.Build()` which makes the Krypton palette |
-   | `ThemeApplier.cs` | Themes the controls a palette cannot reach: menus, toolbars, list views, tabs, group boxes, scrollbars, drop-down lists |
-   | `ModernControls.cs` | `CardPanel` (rounded card) and `PillProgress` (thin progress bar) |
+static void Main()
+{
+    ApplicationConfiguration.Initialize();
+    KryptonTheme.Register();           // Krypton follows the theme
+    ObjectListViewTheme.Register();    // ObjectListView follows the theme
+    ThemeApplier.Install(ModernTheme.NeonSynthwave);
+    Application.Run(new MainForm());   // forms are themed as they open
+}
+```
 
-3. Make your main window a `KryptonForm` and apply a theme:
+Switch theme at run time with `ThemeApplier.SetTheme(ModernTheme.FluentDark)` (every open form and every adapter follows), or add a ready-made menu with `ThemeApplier.AddThemeMenu(menuItem)`. `ThemeApplier.ReadSavedThemeName` / `WriteSavedThemeName` let the app store the choice. Use `ThemeApplier.RegisterStyler<T>` for your own controls and `ThemeApplier.RegisterAdapter` to add another control family.
 
-   ```csharp
-   using Krypton.Toolkit;
-   using KryptonModern;
-
-   public partial class MainForm : KryptonForm
-   {
-       readonly KryptonManager _manager = new();
-       KryptonCustomPaletteBase _palette;
-
-       public MainForm()
-       {
-           InitializeComponent();
-           // ThemeApplier walks the form's controls, which only exist once it is shown
-           Shown += (_, _) => ApplyTheme(ModernTheme.NeonSynthwave);
-       }
-
-       void ApplyTheme(Tokens t)
-       {
-           var old = _palette;
-           _palette = ModernTheme.Build(t);                 // 1. build the palette
-           _manager.GlobalPaletteMode = PaletteMode.Custom; // 2. make it the global palette
-           _manager.GlobalCustomPalette = _palette;
-           old?.Dispose();
-
-           BackColor = t.Canvas;
-           ThemeApplier.Apply(this, t);                     // 3. theme the plain WinForms controls
-       }
-   }
-   ```
-
-   Step 3 re-walks the form, so call it again whenever the user switches theme.
+Apps that want to manage the Krypton palette themselves can skip `Install` and use `KryptonTheme.Build(tokens)` with `ThemeApplier.Apply(form, tokens)`, as the demo does.
 
 ## Control styles
 
@@ -145,8 +132,8 @@ better against `surface`, and `onAccent` readable against `accent`.
 ## Run the demo
 
 ```
-git clone https://github.com/Fungusware/KryptonModern
-cd KryptonModern
+git clone https://github.com/Fungusware/Fungusware.WinFormsThemes
+cd Fungusware.WinFormsThemes
 dotnet run
 ```
 
@@ -178,11 +165,11 @@ Each window has a theme picker; the gallery's four tabs cover the whole suite.
 
 ## Files
 
-- `ModernTheme.cs` – tokens, themes, palette builder
-- `ModernTheme.Suite.cs` – Navigator / Workspace / Docking / Ribbon / tool strip palette entries
-- `ThemeApplier.cs` – theming for controls outside the palette
-- `ModernControls.cs` – `CardPanel`, `PillProgress`
-- `LauncherForm.cs`, `DemoForm.cs`, `ControlsForm.cs`, `GalleryForm.cs`, `Program.cs` – demo only, not needed in your project
+- `Fungusware.WinFormsThemes/` – `ModernTheme.cs` (tokens and themes), `ThemeApplier.cs` (the engine), `ThemeAdapter.cs` (the adapter base), `StatusColors.cs`, `ModernControls.cs`
+- `Fungusware.WinFormsThemes.Krypton/` – `KryptonTheme.cs` (adapter), `KryptonTheme.Palette.cs` (palette builder), `KryptonTheme.Suite.cs` (Navigator / Workspace / Docking / Ribbon / tool strip entries)
+- `Fungusware.WinFormsThemes.ObjectListView/` – `ObjectListViewTheme.cs`
+- `Fungusware.WinFormsThemes.Editor/` – the code editor control
+- `Fungusware.WinFormsThemes.Demo.csproj` and the `.cs` files beside it (`LauncherForm`, `DemoForm`, `ControlsForm`, `GalleryForm`, `VsClone/`) – demo only
 
 ## License
 

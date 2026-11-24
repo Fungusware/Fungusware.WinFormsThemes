@@ -1,10 +1,11 @@
 // Copyright (c) 2026 Fungusware. MIT License - see LICENSE.
+using static Fungusware.WinFormsThemes.ModernTheme;
 using Krypton.Toolkit;
 
-namespace KryptonModern;
+namespace Fungusware.WinFormsThemes;
 
 /// <summary>Palette entries for the wider Krypton suite: Navigator / workspace / docking tabs, Ribbon, tool strips.</summary>
-public static partial class ModernTheme
+public static partial class KryptonTheme
 {
     static void BuildSuite(KryptonCustomPaletteBase p, Tokens t, Font font, Font semi)
     {

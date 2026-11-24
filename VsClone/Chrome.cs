@@ -1,8 +1,8 @@
 // Copyright (c) 2026 Fungusware. MIT License - see LICENSE.
 using Krypton.Toolkit;
-using KryptonModern.Editor;
+using Fungusware.WinFormsThemes.Editor;
 
-namespace KryptonModern.VsClone;
+namespace Fungusware.WinFormsThemes.Demo.VsClone;
 
 /// <summary>The coloured status bar along the bottom (accent normally, orange while the app runs).</summary>
 public sealed class StatusBarEx : Control

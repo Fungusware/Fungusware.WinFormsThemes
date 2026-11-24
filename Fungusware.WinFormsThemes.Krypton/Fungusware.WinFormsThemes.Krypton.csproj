@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Fungusware.WinFormsThemes</RootNamespace>
+    <Authors>Fungusware</Authors>
+    <Company>Fungusware</Company>
+    <Copyright>Copyright (c) 2026 Fungusware</Copyright>
+    <Description>Fungusware.WinFormsThemes for Krypton Toolkit: builds the Krypton palette (forms, buttons, inputs, grid, Navigator, Ribbon, Docking) from the active theme and styles Krypton controls.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageId>Fungusware.WinFormsThemes.Krypton</PackageId>
+    <Version>2026.11.24.1000</Version>
+    <PackageTags>winforms;krypton;theme;dark-mode</PackageTags>
+    <RepositoryUrl>https://github.com/Fungusware/Fungusware.WinFormsThemes</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Fungusware/Fungusware.WinFormsThemes</PackageProjectUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Krypton.Toolkit" Version="105.26.7.201" />
+    <PackageReference Include="Krypton.Navigator" Version="105.26.7.201" />
+    <PackageReference Include="Krypton.Ribbon" Version="105.26.7.201" />
+    <PackageReference Include="Krypton.Docking" Version="105.26.7.201" />
+    <PackageReference Include="Krypton.Workspace" Version="105.26.7.201" />
+    <ProjectReference Include="..\Fungusware.WinFormsThemes\Fungusware.WinFormsThemes.csproj" />
+  </ItemGroup>
+</Project>

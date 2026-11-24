@@ -1,5 +1,5 @@
 // Copyright (c) 2026 Fungusware. MIT License - see LICENSE.
-namespace KryptonModern.Editor;
+namespace Fungusware.WinFormsThemes.Editor;
 
 /// <summary>A zero-based line/column position in the document.</summary>
 public readonly record struct Pos(int Line, int Column) : IComparable<Pos>

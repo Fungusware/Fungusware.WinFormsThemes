@@ -1,9 +1,9 @@
 // Copyright (c) 2026 Fungusware. MIT License - see LICENSE.
 using System.Diagnostics;
 using Krypton.Toolkit;
-using KryptonModern.Editor;
+using Fungusware.WinFormsThemes.Editor;
 
-namespace KryptonModern.VsClone;
+namespace Fungusware.WinFormsThemes.Demo.VsClone;
 
 public partial class VsCloneForm
 {
@@ -149,7 +149,7 @@ public partial class VsCloneForm
 
         var help = Menu("&Help",
             Mi("View Krypton Toolkit on GitHub", () => OpenUrl("https://github.com/Krypton-Suite/Standard-Toolkit")),
-            Mi("KryptonModern on GitHub", () => OpenUrl("https://github.com/Fungusware/KryptonModern")),
+            Mi("Fungusware.WinFormsThemes on GitHub", () => OpenUrl("https://github.com/Fungusware/Fungusware.WinFormsThemes")),
             Sep(),
             Mi("&About Krypton Studio", () => new AboutDialog(_t).ShowDialog(this), Keys.None, Ico.Info));
 
