@@ -13,7 +13,7 @@ public class LauncherForm : KryptonForm
     {
         Text = "Krypton Modern";
         StartPosition = FormStartPosition.CenterScreen;
-        ClientSize = new Size(560, 420);
+        ClientSize = new Size(560, 520);
         FormBorderStyle = FormBorderStyle.FixedDialog;
         MaximizeBox = false;
         AutoScaleMode = AutoScaleMode.Dpi;

@@ -228,6 +228,8 @@ public static partial class KryptonTheme
         Fill(style.StateTracking, hover, border);
         Fill(style.StatePressed, pressed, border);
         Fill(style.StateCheckedNormal, pressed, border);
+        // A focused or default button is drawn from these overrides; left unset they show the base palette's grey (white text on grey).
+        foreach (var o in new object[] { style.OverrideFocus, style.OverrideDefault }) { dynamic d = o; d.Back.Color1 = normal; d.Back.Color2 = normal; d.Border.Color1 = border; d.Border.Color2 = border; d.Content.ShortText.Color1 = text; }
         Fill(style.StateDisabled, t.SurfaceAlt, t.Border);
         style.StateDisabled.Content.ShortText.Color1 = t.Disabled;
     }
