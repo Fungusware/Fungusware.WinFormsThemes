@@ -12,6 +12,9 @@ public static partial class KryptonTheme
     /// <summary>Base font size (pt, Segoe UI) used by the palette. Set before the theme is installed.</summary>
     public static float FontSize { get; set; } = 9f;
 
+    // the largest corner radius on text, combo and numeric boxes: more makes them taller (see below)
+    const float InputMaxRounding = 4f;
+
     public static KryptonCustomPaletteBase Build(Tokens t)
     {
         var p = new KryptonCustomPaletteBase();
@@ -81,16 +84,20 @@ public static partial class KryptonTheme
         Button(p.ButtonStyles.ButtonInputControl, t.Surface, t.SurfaceAlt, t.Border, t.Surface, t.Text, t, font);
 
         // ---- text inputs / combo / numeric / date ---------------------
+        // Screens are usually laid out for stock Krypton, where these are 22-23px tall in rows about 29px apart. Padding and corner
+        // rounding both add to the height: a radius of 2-4 adds 2px and 6 adds 4px. Inputs therefore have their own, smaller radius,
+        // which keeps most of them at 24px.
+        var inputRounding = Math.Min(t.Radius, InputMaxRounding);
         foreach (var s in new[] { p.InputControlStyles.InputControlStandalone, p.InputControlStyles.InputControlRibbon, p.InputControlStyles.InputControlCustom1, p.InputControlStyles.InputControlCustom2, p.InputControlStyles.InputControlCustom3 })
         {
         var c = s.StateCommon;
         c.Back.Color1 = t.Surface; c.Back.Color2 = t.Surface; c.Back.ColorStyle = PaletteColorStyle.Solid;
         c.Border.Color1 = t.Border; c.Border.Color2 = t.Border;
-        c.Border.Width = 1; c.Border.Rounding = t.Radius;
+        c.Border.Width = 1; c.Border.Rounding = inputRounding;
         c.Border.DrawBorders = PaletteDrawBorders.All;
         c.Border.GraphicsHint = PaletteGraphicsHint.AntiAlias;
         c.Content.ShortText.Color1 = t.Text; c.Content.ShortText.Font = font;
-        c.Content.Padding = new Padding(4, 3, 4, 3);
+        c.Content.Padding = new Padding(4, 2, 4, 2);
         s.StateNormal.Border.Color1 = t.Border; s.StateNormal.Border.Color2 = t.Border;
         s.StateActive.Border.Color1 = t.Accent; s.StateActive.Border.Color2 = t.Accent;
         s.StateDisabled.Back.Color1 = t.SurfaceAlt; s.StateDisabled.Back.Color2 = t.SurfaceAlt;

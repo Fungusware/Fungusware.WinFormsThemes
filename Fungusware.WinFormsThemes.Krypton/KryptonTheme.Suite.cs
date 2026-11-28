@@ -84,10 +84,21 @@ public static partial class KryptonTheme
             b.StateCommon.Border.Color1 = t.Border; b.StateCommon.Border.Color2 = t.Border;
             b.OverrideFocus.Border.Color1 = t.Accent; b.OverrideFocus.Border.Color2 = t.Accent;
         }
+        // The buttons inside text, combo and numeric boxes (Browse, Clear, an icon) sit within the box, so any padding or border of
+        // their own makes the whole box taller (by 16px with both). Flat, like the drop-down arrow; hovering still shows the button.
+        p.ButtonStyles.ButtonButtonSpec.StateCommon.Content.Padding = new Padding(0);
+        p.ButtonStyles.ButtonButtonSpec.StateCommon.Border.DrawBorders = PaletteDrawBorders.None;
         CheckedLook(p.ButtonStyles.ButtonStandalone, t, selBack);
         foreach (dynamic sb in new dynamic[] { p.ButtonStyles.ButtonNavigatorStack, p.ButtonStyles.ButtonNavigatorOverflow }) sb.StateCommon.Border.Rounding = 0;
         Button(p.ButtonStyles.ButtonLowProfile, t.Canvas, t.SurfaceAlt, t.Border, t.Canvas, t.Text, t, font);
         CheckedLook(p.ButtonStyles.ButtonLowProfile, t, selBack);
+        // Low profile is also a common style for the buttons inside inputs, so it must not add height either. A real button with this
+        // style has its own size, and still gets an outline when it has the keyboard focus.
+        p.ButtonStyles.ButtonLowProfile.StateCommon.Content.Padding = new Padding(6, 0, 6, 0);
+        p.ButtonStyles.ButtonLowProfile.StateCommon.Border.DrawBorders = PaletteDrawBorders.None;
+        p.ButtonStyles.ButtonLowProfile.OverrideFocus.Border.DrawBorders = PaletteDrawBorders.All;
+        p.ButtonStyles.ButtonLowProfile.OverrideFocus.Border.Color1 = t.Accent;
+        p.ButtonStyles.ButtonLowProfile.OverrideFocus.Border.Color2 = t.Accent;
 
         // ---- docking splitters / dock headers already use Header + Separator styles ----
 
