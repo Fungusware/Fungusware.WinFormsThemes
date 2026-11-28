@@ -108,6 +108,6 @@ Some colours are computed from the tokens so that a theme needs only 12:
 |---|---|
 | `CardPanel` | A rounded surface with a hairline border. Its `Tokens` property sets the look |
 | `PillProgress` | A thin rounded progress bar. `Value` is 0 to 100 |
-| `ModernTabControl` | A `TabControl` that paints its own tab strip so no native chrome shows |
+| `ModernTabControl` | A `TabControl` that paints its own tab strip so no native chrome shows, with a light border round the page and each page's `ImageList` icon beside its name. Tabs are a fixed size, so set `ItemSize` wide enough for the icon and the text |
 
 `CardPanel` and `PillProgress` read their own `Tokens` property (default `FluentLight`). Set it to `ThemeApplier.Current` when you switch theme. `ModernTabControl` reads `ThemeApplier.Current` directly.

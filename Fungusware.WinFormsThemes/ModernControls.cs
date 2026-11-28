@@ -60,7 +60,7 @@ public class PillProgress : Control
     }
 }
 
-/// <summary>TabControl that paints its own tab strip so no native light chrome shows.</summary>
+/// <summary>TabControl that paints its own tab strip so no native light chrome shows, with a light border round the page.</summary>
 public class ModernTabControl : TabControl
 {
     public ModernTabControl()
@@ -74,16 +74,50 @@ public class ModernTabControl : TabControl
     {
         var t = ThemeApplier.Current; var g = e.Graphics;
         g.Clear(t.Surface);
+        // A light border round the page shows that these are tabs and what each one contains. It goes in the few pixels the native
+        // control leaves round its pages, and is drawn first so the selected tab's underline sits on top of it.
         int bottom = 0;
+        for (int i = 0; i < TabCount; i++) bottom = Math.Max(bottom, GetTabRect(i).Bottom);
+        using (var edge = new Pen(ModernTheme.Blend(t.BorderStrong, t.Border, 0.45f)))
+            g.DrawRectangle(edge, 0, bottom + 1, Width - 1, Math.Max(0, Height - bottom - 2));
         for (int i = 0; i < TabCount; i++)
         {
-            var r = GetTabRect(i); bottom = Math.Max(bottom, r.Bottom);
+            var r = GetTabRect(i);
             bool sel = i == SelectedIndex;
-            TextRenderer.DrawText(g, TabPages[i].Text, Font, r, sel ? t.Text : t.TextMuted,
-                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis);
+            DrawCaption(g, TabPages[i], r, sel ? t.Text : t.TextMuted);
             if (sel) { using var pen = new Pen(t.Accent, 3); g.DrawLine(pen, r.Left + 10, r.Bottom + 1, r.Right - 10, r.Bottom + 1); }
         }
-        using var line = new Pen(t.Border);
-        g.DrawLine(line, 0, bottom + 2, Width, bottom + 2);
+    }
+
+    // The page's icon from the control's ImageList (by ImageIndex or ImageKey), then its text, centred in the tab together. An icon
+    // too tall for the tab is scaled down. In a tab too narrow for both, the text is the part that is shortened.
+    void DrawCaption(Graphics g, TabPage page, Rectangle r, Color colour)
+    {
+        const TextFormatFlags flags = TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis;
+        int index = ImageList == null ? -1 : page.ImageIndex >= 0 ? page.ImageIndex : ImageList.Images.IndexOfKey(page.ImageKey);
+        if (index < 0 || index >= ImageList.Images.Count)
+        {
+            TextRenderer.DrawText(g, page.Text, Font, r, colour, flags | TextFormatFlags.HorizontalCenter);
+            return;
+        }
+
+        const int gap = 4, margin = 2;
+        var size = ImageList.ImageSize;
+        int height = Math.Min(size.Height, r.Height - 4);
+        int width = size.Width * height / size.Height;
+        int text = TextRenderer.MeasureText(g, page.Text, Font, r.Size, flags).Width;
+        int room = Math.Max(0, r.Width - 2 * margin - width - gap);
+        text = Math.Min(text, room);
+        int x = r.Left + Math.Max(margin, (r.Width - width - gap - text) / 2);
+        var box = new Rectangle(x, r.Top + (r.Height - height) / 2, width, height);
+
+        if (box.Size == size) ImageList.Draw(g, box.Location, index);
+        else
+        {
+            using var image = ImageList.Images[index];
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            g.DrawImage(image, box);
+        }
+        TextRenderer.DrawText(g, page.Text, Font, new Rectangle(box.Right + gap, r.Top, text, r.Height), colour, flags);
     }
 }
